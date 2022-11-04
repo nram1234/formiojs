@@ -26,11 +26,11 @@ List<Widget>form=[];
 List<BaseAllWidgets>baseAllWidgets=[];
 Map<String,bool>checkboxValMap={};
 Map<String,String>ridoValMap={};
-String aaaaa="";
+//String aaaaa="";
 @override
   void onInit() {
 super.onInit();
-checkboxValMap["a"]=false;
+//checkboxValMap["a"]=false;
 getJson();
 
   }
@@ -69,14 +69,17 @@ ttr.forEach((element) {
   else if(element["type"]=="radio"){
 
     RadioFromJson radioFromJson=RadioFromJson.fromJson(element);
-    ridoValMap[radioFromJson.key!]=radioFromJson.key!;
+    if( ridoValMap[radioFromJson.key!]==null){
+      ridoValMap[radioFromJson.key!]="";
+    }
+
 
     List <Widget>ri=[];
     for(int i=0;i<(radioFromJson.values?.length??0);i++){
-      Radio radio=Radio(value: radioFromJson.values![i].value, groupValue: aaaaa, onChanged: (v){
+      Radio radio=Radio(value: radioFromJson.values![i].value, groupValue: radioFromJson.key, onChanged: (v){
 
-        aaaaa=v;
-        print(aaaaa);
+        // aaaaa=v;
+        // print(aaaaa);
         ridioUpdate(key:radioFromJson.key,val: v );
       });
       ri.add(radio);
@@ -89,9 +92,13 @@ ttr.forEach((element) {
   else if(element["type"]=="checkbox"){
 
     CheckboxFromJson b=CheckboxFromJson.fromJson(element);
-
+if(checkboxValMap[b.key]==null){
+  checkboxValMap[b.key!]=false;
+}
 print("===============================");
-    form.add(Checkbox(value:checkboxValMap["a"], onChanged:checkboxValMapUpdate));
+    form.add(Checkbox(value:checkboxValMap[b.key], onChanged:(v){
+      checkboxValMapUpdate(b.key,v);
+    }));
     baseAllWidgets.add(b);
 
 
@@ -104,10 +111,10 @@ update();
 
 
   }
-checkboxValMapUpdate(v){
+checkboxValMapUpdate(key,v){
   print("object");
 
-  checkboxValMap["a"]=v;
+  checkboxValMap[key]=v;
   getJson();
   update();
 }
