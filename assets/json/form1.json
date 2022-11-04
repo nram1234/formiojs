@@ -1,0 +1,116 @@
+{
+  "display": "form",
+  "settings": {
+    "pdf": {
+      "id": "1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
+      "src": "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0"
+    }
+  },
+  "components": [
+    {
+      "label": "Text Field",
+      "showWordCount": true,
+      "showCharCount": true,
+      "tableView": true,
+      "validate": {
+        "required": true,
+        "minLength": 5,
+        "maxLength": 15
+      },
+      "key": "textField",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Checkbox",
+      "tableView": false,
+      "redrawOn": "textField",
+      "key": "checkbox",
+      "type": "checkbox",
+      "input": true,
+      "defaultValue": false
+    },
+    {
+      "label": "Select Boxes",
+      "optionsLabelPosition": "right",
+      "tableView": false,
+      "values": [
+        {
+          "label": "a",
+          "value": "a",
+          "shortcut": ""
+        },
+        {
+          "label": "b",
+          "value": "b",
+          "shortcut": ""
+        },
+        {
+          "label": "c",
+          "value": "c",
+          "shortcut": ""
+        },
+        {
+          "label": "d",
+          "value": "d",
+          "shortcut": ""
+        }
+      ],
+      "key": "selectBoxes",
+      "type": "selectboxes",
+      "input": true,
+      "inputType": "checkbox"
+    },
+    {
+      "label": "Radio",
+      "optionsLabelPosition": "right",
+      "inline": false,
+      "tableView": false,
+      "values": [
+        {
+          "label": "aa",
+          "value": "aa",
+          "shortcut": ""
+        },
+        {
+          "label": "ss",
+          "value": "ss",
+          "shortcut": ""
+        },
+        {
+          "label": "dd",
+          "value": "dd",
+          "shortcut": ""
+        }
+      ],
+      "key": "radio",
+      "type": "radio",
+      "input": true
+    },
+    {
+      "label": "Submit",
+      "showValidations": false,
+      "tableView": false,
+      "key": "submit1",
+      "type": "button",
+      "input": true
+    },
+    {
+      "label": "Submit",
+      "showValidations": false,
+      "tableView": true,
+      "key": "submit2",
+      "type": "button",
+      "input": true,
+      "saveOnEnter": false
+    },
+    {
+      "type": "button",
+      "label": "Submit",
+      "key": "submit",
+      "disableOnInvalid": true,
+      "input": true,
+      "tableView": false
+    }
+  ]
+}
