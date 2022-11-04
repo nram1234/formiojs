@@ -9,6 +9,7 @@ import '../all_widgets/base_all_widgets.dart';
 import '../all_widgets/button_from_json.dart';
 import '../all_widgets/checkbox_from_json.dart';
 import '../all_widgets/radio_from_json.dart';
+import '../all_widgets/t.dart';
 import '../all_widgets/textfiled_from_json.dart';
 
 enum JsonWidgets {
@@ -24,13 +25,18 @@ class HomeController extends GetxController{
 List<Widget>form=[];
 List<BaseAllWidgets>baseAllWidgets=[];
 Map<String,bool>checkboxValMap={};
+Map<String,String>ridoValMap={};
+String aaaaa="";
 @override
   void onInit() {
 super.onInit();
+checkboxValMap["a"]=false;
 getJson();
+
   }
 
   getJson() async {
+  form.clear();
     final jsondata = await rootBundel.rootBundle
         .loadString("assets/json/form1.json");
 
@@ -63,27 +69,29 @@ ttr.forEach((element) {
   else if(element["type"]=="radio"){
 
     RadioFromJson radioFromJson=RadioFromJson.fromJson(element);
+    ridoValMap[radioFromJson.key!]=radioFromJson.key!;
+
     List <Widget>ri=[];
     for(int i=0;i<(radioFromJson.values?.length??0);i++){
-      Radio radio=Radio(value: radioFromJson.values![i].value, groupValue: radioFromJson.key, onChanged: (v){});
+      Radio radio=Radio(value: radioFromJson.values![i].value, groupValue: aaaaa, onChanged: (v){
+
+        aaaaa=v;
+        print(aaaaa);
+        ridioUpdate(key:radioFromJson.key,val: v );
+      });
       ri.add(radio);
     }
 
-    form.add(Column(children: [Text(radioFromJson!.label!,),...ri],));
+    form.add(Column(children: [Text(radioFromJson.label!,),...ri],));
 
   }
 
   else if(element["type"]=="checkbox"){
 
     CheckboxFromJson b=CheckboxFromJson.fromJson(element);
-    checkboxValMap["a"]=false;
 
-    form.add(Checkbox(value:checkboxValMap["a"] , onChanged: (bool? v){
-
-      checkboxValMapUpdate( key: "a",val: v);
-
-
-    }));
+print("===============================");
+    form.add(Checkbox(value:checkboxValMap["a"], onChanged:checkboxValMapUpdate));
     baseAllWidgets.add(b);
 
 
@@ -96,12 +104,17 @@ update();
 
 
   }
-checkboxValMapUpdate({required key,val}){
+checkboxValMapUpdate(v){
   print("object");
-  print("$key     $val");
-  print(checkboxValMap[key]);
-  checkboxValMap[key]=val;
-  print(checkboxValMap[key]);
+
+  checkboxValMap["a"]=v;
+  getJson();
+  update();
+}
+ridioUpdate({required key,val}){
+  print("$key  $val");
+  ridoValMap[key]=val;
+  getJson();
   update();
 }
  String? vvv(String? v){
