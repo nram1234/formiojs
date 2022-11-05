@@ -5,133 +5,138 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundel;
 import 'package:get/get.dart';
 
-import '../all_widgets/base_all_widgets.dart';
-import '../all_widgets/button_from_json.dart';
-import '../all_widgets/checkbox_from_json.dart';
-import '../all_widgets/radio_from_json.dart';
-import '../all_widgets/t.dart';
-import '../all_widgets/textfiled_from_json.dart';
+import '../all_widgets_json_model/base_all_widgets.dart';
+import '../all_widgets_json_model/button_from_json.dart';
+import '../all_widgets_json_model/checkbox_from_json.dart';
+import '../all_widgets_json_model/radio_from_json.dart';
+import '../all_widgets_json_model/textfiled_from_json.dart';
 
-enum JsonWidgets {
-  button,
-  textfield,
-  radio,
-  checkbox
-}
+enum JsonWidgets { button, textfield, radio, checkbox }
 
+class HomeController extends GetxController {
+  List<Widget> form = [];
+  List<BaseAllWidgets> baseAllWidgets = [];
+  Map<String, bool> checkboxValMap = {};
+  Map<String, String> ridoValMap = {};
+  String aaaaa = "";
 
-class HomeController extends GetxController{
-
-List<Widget>form=[];
-List<BaseAllWidgets>baseAllWidgets=[];
-Map<String,bool>checkboxValMap={};
-Map<String,String>ridoValMap={};
- String aaaaa="";
-@override
+  @override
   void onInit() {
-super.onInit();
+    super.onInit();
 //checkboxValMap["a"]=false;
-getJson();
-
+    getJson();
   }
 
   getJson() async {
-  form.clear();
-    final jsondata = await rootBundel.rootBundle
-        .loadString("assets/json/form1.json");
+    form.clear();
+    final jsondata =
+        await rootBundel.rootBundle.loadString("assets/json/form1.json");
 
+    var a = jsonDecode(jsondata);
 
+    List ttr = a['components'];
+    ttr.forEach((element) {
+      if (element["type"] == "button") {
+        ButtonFromJson b = ButtonFromJson.fromJson(element);
 
-    var a=jsonDecode(jsondata);
+        form.add(TextButton(onPressed: () {}, child: Text(b.label!)));
+        baseAllWidgets.add(b);
+      } else if (element["type"] == "textfield") {
+        TextFiledFromJson b = TextFiledFromJson.fromJson(element);
 
-List ttr=a['components'];
-ttr.forEach((element) {
+        Widget a = Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),
+                border: Border.all(
+              width: 1,
+              color: Colors.blueAccent,
+            )),
+            padding: EdgeInsets.all(8),
+            child: TextFormField(
+              validator: vvv,
+            ));
+        form.add(a);
+        baseAllWidgets.add(b);
+      } else if (element["type"] == "radio") {
+        RadioFromJson radioFromJson = RadioFromJson.fromJson(element);
 
+        if (ridoValMap[radioFromJson.key] == null) {
+          ridoValMap[radioFromJson.key!] = "";
+        }
 
-  if(element["type"]=="button"){
+        List<Widget> ri = [];
+        for (int i = 0; i < radioFromJson.values!.length; i++) {
+          ri.add(Row(
+            children: [
+              Text(radioFromJson.values![i].label!),
+              SizedBox(
+                width: 8,
+              ),
+              Radio(
+                  value: radioFromJson.values![i].value,
+                  groupValue: ridoValMap[radioFromJson.key!],
+                  onChanged: (v) {
+                    ridioUpdate(key: radioFromJson.key!, val: v!);
+                  }),
+            ],
+          ));
+        }
 
-    ButtonFromJson b=ButtonFromJson.fromJson(element);
+        form.add(Column(
+          children: [
+            Text(
+              radioFromJson.label!,
+            ),
+            ...ri
+          ],
+        ));
+      } else if (element["type"] == "checkbox") {
+        CheckboxFromJson b = CheckboxFromJson.fromJson(element);
+        if (checkboxValMap[b.key] == null) {
+          checkboxValMap[b.key!] = false;
+        }
+        print("===============================");
+        form.add(Row(
+          children: [
+            Text(b.label!),
+            SizedBox(
+              width: 8,
+            ),
+            Checkbox(
+                value: checkboxValMap[b.key],
+                onChanged: (v) {
+                  checkboxValMapUpdate(b.key, v);
+                }),
+          ],
+        ));
 
+        //   baseAllWidgets.add(b);
 
-    form.add(TextButton(onPressed: (){}, child: Text(b.label!)));
-    baseAllWidgets.add(b);
+      }
+    });
 
-
+    update();
   }
-  else if(element["type"]=="textfield"){
 
-    TextFiledFromJson b=TextFiledFromJson.fromJson(element);
+  checkboxValMapUpdate(key, v) {
+    print("object");
 
-    TextFormField a=TextFormField(validator: vvv,);
-    form.add( a);
-    baseAllWidgets.add(b);
+    checkboxValMap[key] = v;
+    getJson();
+    //update();
   }
-  else if(element["type"]=="radio"){
 
-    RadioFromJson radioFromJson=RadioFromJson.fromJson(element);
+  ridioUpdate({required String key, required String val}) {
+    print("$key  $val");
+    aaaaa = val;
+    ridoValMap[key] = val;
+    getJson();
+    //update();
+  }
 
-    if( ridoValMap[radioFromJson.key]==null){
-
-      ridoValMap[radioFromJson.key!]="";
+  String? vvv(String? v) {
+    if ((v?.length ?? 0) < 5) {
+      return "000000000000000000";
     }
-
-
-    List <Widget>ri=[];
-    for(int i=0;i<radioFromJson.values!.length;i++){
-
-      ri.add(Radio(value: radioFromJson.values![i].value, groupValue:ridoValMap[radioFromJson.key!] , onChanged: (v){
-
-        ridioUpdate(key:radioFromJson.key!,val: v! );
-      }));
-    }
-
-    form.add(Column(children: [Text(radioFromJson.label!,),...ri],));
-
-  }
-
-  else if(element["type"]=="checkbox"){
-
-    CheckboxFromJson b=CheckboxFromJson.fromJson(element);
-if(checkboxValMap[b.key]==null){
-  checkboxValMap[b.key!]=false;
-}
-print("===============================");
-    form.add(Checkbox(value:checkboxValMap[b.key], onChanged:(v){
-      checkboxValMapUpdate(b.key,v);
-    }));
-
-
- //   baseAllWidgets.add(b);
-
-
-
-  }
-
-});
-
-update();
-
-
-  }
-checkboxValMapUpdate(key,v){
-  print("object");
-
-  checkboxValMap[key]=v;
-  getJson();
-  //update();
-}
-ridioUpdate({required String key,required String val}){
-  print("$key  $val");
-  aaaaa=val;
-  ridoValMap[key]=val;
-  getJson();
-  //update();
-}
- String? vvv(String? v){
-  if((v?.length??0)<5){
-    return "000000000000000000";
-
-  }
-  return null;
+    return null;
   }
 }

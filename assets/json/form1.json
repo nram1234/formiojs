@@ -8,10 +8,31 @@
   },
   "components": [
     {
-      "label": "Text Field",
+      "label": "name",
       "tableView": true,
-      "key": "textField",
+      "key": "name",
       "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Radio test",
+      "optionsLabelPosition": "right",
+      "inline": false,
+      "tableView": false,
+      "values": [
+        {
+          "label": "m",
+          "value": "m",
+          "shortcut": ""
+        },
+        {
+          "label": "f",
+          "value": "f",
+          "shortcut": ""
+        }
+      ],
+      "key": "radioTest",
+      "type": "radio",
       "input": true
     },
     {
@@ -21,18 +42,28 @@
       "tableView": false,
       "values": [
         {
-          "label": "vv",
-          "value": "vv",
+          "label": "a",
+          "value": "a",
           "shortcut": ""
         },
         {
-          "label": "gg",
-          "value": "gg",
+          "label": "b",
+          "value": "b",
           "shortcut": ""
         },
         {
-          "label": "rr",
-          "value": "rr",
+          "label": "c",
+          "value": "c",
+          "shortcut": ""
+        },
+        {
+          "label": "d",
+          "value": "d",
+          "shortcut": ""
+        },
+        {
+          "label": "e",
+          "value": "e",
           "shortcut": ""
         }
       ],
@@ -41,37 +72,12 @@
       "input": true
     },
     {
-      "label": "Checkbox",
+      "label": "Checkbox test",
       "tableView": false,
-      "key": "checkbox",
+      "key": "checkboxTest",
       "type": "checkbox",
-      "input": true
-    },
-    {
-      "label": "Radio ttest",
-      "optionsLabelPosition": "right",
-      "inline": false,
-      "tableView": false,
-      "values": [
-        {
-          "label": "qq",
-          "value": "qq",
-          "shortcut": ""
-        },
-        {
-          "label": "ww",
-          "value": "ww",
-          "shortcut": ""
-        },
-        {
-          "label": "rr",
-          "value": "rr",
-          "shortcut": ""
-        }
-      ],
-      "key": "radioTtest",
-      "type": "radio",
-      "input": true
+      "input": true,
+      "defaultValue": false
     },
     {
       "type": "button",

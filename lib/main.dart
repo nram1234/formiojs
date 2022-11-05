@@ -88,14 +88,17 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: GetBuilder<HomeController>(builder: (logic) {
-        print("ppppppppppppppppppppppppppppppppp");
+
         return Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
-            child: ListView.builder(
-                itemCount: logic.form.length, itemBuilder: (context, pos) {
-                  return logic.form[pos];
-            }));
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                  itemCount: logic.form.length, itemBuilder: (context, pos) {
+                    return logic.form[pos];
+              }),
+            ));
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,

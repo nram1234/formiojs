@@ -1,4 +1,5 @@
-import 'package:formiojs/all_widgets/base_all_widgets.dart';
+
+import 'base_all_widgets.dart';
 
 class ButtonFromJson extends BaseAllWidgets{
 
