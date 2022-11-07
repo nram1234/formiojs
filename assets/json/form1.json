@@ -8,31 +8,45 @@
   },
   "components": [
     {
-      "label": "name",
+      "label": "Select",
+      "widget": "choicesjs",
       "tableView": true,
-      "key": "name",
-      "type": "textfield",
+      "data": {
+        "values": [
+          {
+            "label": "aa",
+            "value": "aa"
+          },
+          {
+            "label": "bb",
+            "value": "bb"
+          },
+          {
+            "label": "cc",
+            "value": "cc"
+          },
+          {
+            "label": "vv",
+            "value": "vv"
+          }
+        ]
+      },
+      "key": "select",
+      "type": "select",
       "input": true
     },
     {
-      "label": "Radio test",
-      "optionsLabelPosition": "right",
-      "inline": false,
+      "label": "Checkbox",
       "tableView": false,
-      "values": [
-        {
-          "label": "m",
-          "value": "m",
-          "shortcut": ""
-        },
-        {
-          "label": "f",
-          "value": "f",
-          "shortcut": ""
-        }
-      ],
-      "key": "radioTest",
-      "type": "radio",
+      "key": "checkbox",
+      "type": "checkbox",
+      "input": true
+    },
+    {
+      "label": "Text Field",
+      "tableView": true,
+      "key": "textField",
+      "type": "textfield",
       "input": true
     },
     {
@@ -42,42 +56,24 @@
       "tableView": false,
       "values": [
         {
-          "label": "a",
-          "value": "a",
+          "label": "ww",
+          "value": "ww",
           "shortcut": ""
         },
         {
-          "label": "b",
-          "value": "b",
+          "label": "dd",
+          "value": "dd",
           "shortcut": ""
         },
         {
-          "label": "c",
-          "value": "c",
-          "shortcut": ""
-        },
-        {
-          "label": "d",
-          "value": "d",
-          "shortcut": ""
-        },
-        {
-          "label": "e",
-          "value": "e",
+          "label": "vv",
+          "value": "vv",
           "shortcut": ""
         }
       ],
       "key": "radio",
       "type": "radio",
       "input": true
-    },
-    {
-      "label": "Checkbox test",
-      "tableView": false,
-      "key": "checkboxTest",
-      "type": "checkbox",
-      "input": true,
-      "defaultValue": false
     },
     {
       "type": "button",
